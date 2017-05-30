@@ -15,15 +15,11 @@ resolvers ++= Seq(
 enablePlugins(JavaAppPackaging)
 enablePlugins(DockerPlugin)
 
-
-
-
 val playJsonVer = "2.5.2"
-
 
 val playJson = "com.typesafe.play" %% "play-json" % playJsonVer
 val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0"
-val influxDb = "com.paulgoldbaum" %% "scala-influxdb-client" % "0.4.5"
+val influxDb = "com.paulgoldbaum" %% "scala-influxdb-client" % "0.5.2"
 val scalaJ = "org.scalaj" %% "scalaj-http" % "2.3.0"
 val logbackClassic = "ch.qos.logback" % "logback-classic" % "1.1.7"
 

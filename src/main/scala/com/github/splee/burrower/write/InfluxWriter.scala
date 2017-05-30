@@ -10,14 +10,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
 class InfluxWriter(
-  influxHost: String,
-  influxPort: Int,
-  influxDatabase: String,
-  influxSeries: String,
-  userName: String,
-  password: String,
-  isSecure: Boolean
-) extends Writer with LazyLogging {
+                    influxHost: String,
+                    influxPort: Int,
+                    influxDatabase: String,
+                    influxSeries: String,
+                    userName: String,
+                    password: String,
+                    isSecure: Boolean
+                  ) extends Writer with LazyLogging {
 
   val influxdb = InfluxDB.connect(influxHost, influxPort, userName, password, isSecure)
   val database = influxdb.selectDatabase(influxDatabase)
@@ -33,11 +33,11 @@ class InfluxWriter(
         .addField("lag", lag.lag)
     })
     database.bulkWrite(points, precision = Precision.MILLISECONDS)
-      .onComplete(_ match {
+      .onComplete {
         case Success(v) =>
           logger.debug("Metrics sent to InfluxDB")
         case Failure(e) =>
-          logger.debug(f"Sending metrics to InfluxDB failed: ${e.getMessage}")
-      })
+          logger.info(f"Sending metrics to InfluxDB failed: ${e.getMessage}", e)
+      }
   }
 }
